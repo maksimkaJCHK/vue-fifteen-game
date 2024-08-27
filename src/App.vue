@@ -1,0 +1,55 @@
+<template>
+  <div>
+    <a href="https://vitejs.dev" target="_blank">
+      <img src="/vite.svg" class="logo" alt="Vite logo" />
+    </a>
+    <a href="https://vuejs.org/" target="_blank">
+      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
+    </a>
+  </div>
+  <HelloWorld msg="Vite + Vue" />
+</template>
+
+<script setup>
+  import HelloWorld from '@/components/HelloWorld.vue';
+  import { provide } from 'vue';
+
+</script>
+
+<style lang="scss">
+  :root {
+    --service-block-bg: #f39c12;
+    --button-bg: #375a7f;
+    --item-bg: #1e5c9d;
+  }
+
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    font: 16px/120% Arial, "Helvetica CY", "Nimbus Sans L", sans-serif;
+  }
+
+  body {
+    background: #222;
+  }
+
+  #app {
+    min-height: 100vh;
+    min-height: 100dvh;
+    box-sizing: border-box;
+  }
+
+  .mainContent {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    min-height: calc(100vh - 102px);
+    min-height: calc(100dvh - 102px);
+
+    main {
+      width: 100%;
+    }
+  }
+</style>

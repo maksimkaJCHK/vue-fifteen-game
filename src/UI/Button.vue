@@ -1,0 +1,58 @@
+<template>
+  <button
+    :disabled="disabled"
+    className="button"
+  >
+    <slot></slot>
+  </button>
+
+</template>
+
+<script setup>
+  import { defineProps } from 'vue';
+
+  defineProps({
+    disabled: Boolean,
+  });
+</script>
+
+<style lang="scss">
+  @import '@/styles/_easing.scss';
+
+  .button {
+    $transition: .15s $easeInOutSine .2s;
+    --btn-bg: var(--button-bg);
+    --btn-bg-hover: #2f4d6c;
+    --btn-active-hover: #2c4846;
+
+    display: inline-block;
+    padding: 10px 12px;
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    border: 1px solid var(--btn-bg);
+    border-radius: 5px;
+    background-color: var(--btn-bg);
+    font: 15px/120% Tahoma, "Geneva CY", sans-serif;
+    transition: color $transition, background-color $transition, border-color $transition, box-shadow $transition, opacity $transition;
+
+    &:hover {
+      --btn-bg: var(--btn-bg-hover);
+    }
+    &:active {
+      --btn-bg: var(--btn-active-hover);
+    }
+    &[disabled] {
+      opacity: .7;
+
+      &:hover {
+        --btn-bg: var(--button-bg);
+      }
+    }
+  }
+</style>
