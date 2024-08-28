@@ -15,27 +15,27 @@
           <form
             action="example.php"
           >
-            <Checkbox
+            <Radio
               v-model="setSize"
               :val = "3"
               name="size"
             >
               3 X 3
-            </Checkbox>
-            <Checkbox
+            </Radio>
+            <Radio
               v-model="setSize"
               :val = "4"
               name="size"
             >
               4 X 4
-            </Checkbox>
-            <Checkbox
+            </Radio>
+            <Radio
               v-model="setSize"
               :val = "5"
               name="size"
             >
               5 X 5
-            </Checkbox>
+            </Radio>
 
             <Button >
               Save settings
@@ -51,7 +51,7 @@
   import { ref, inject, computed } from 'vue';
 
   import Close from '@/UI/Close.vue';
-  import Checkbox from '@/UI/Checkbox.vue';
+  import Radio from '@/UI/Radio.vue';
 
   const setSize = ref(3);
   const isSettings = inject('isSettings');
