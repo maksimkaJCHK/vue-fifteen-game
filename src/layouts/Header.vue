@@ -1,0 +1,53 @@
+<template>
+  <header class="header">
+    <Wrapper>
+      <SettingsIcon @click="openSettings" />
+
+      <div className="header-logo">
+        Vue fifteen game
+      </div>
+    </Wrapper>
+  </header>
+</template>
+
+<script setup>
+  import { inject } from 'vue';
+  import SettingsIcon from '@/UI/SettingsIcon.vue';
+
+  const openSettings = inject('openSettings');
+</script>
+
+<style lang="scss">
+  .header {
+    --pad-top-bot: 10px;
+
+    color: #fff;
+    background: var(--service-block-bg);
+    font-size: 15px;
+
+    .wrapper {
+      display: flex;
+      align-items: center;
+      padding-top: var(--pad-top-bot);
+      padding-bottom: var(--pad-top-bot);
+    }
+
+    &-logo {
+      margin: 0 auto;
+      font-size: 16px;
+      font-weight: bold;
+      flex: 1;
+      text-align: center;
+      text-shadow: 1px 0 2px #000;
+      transition: font-size .4s ease-in-out 0s;
+
+      @media screen and (min-width: 380px) {
+        font-size: 20px;
+      }
+
+      @media screen and (min-width: 500px) {
+        font-size: 25px;
+      }
+    }
+  }
+</style>
