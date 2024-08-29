@@ -1,7 +1,7 @@
 <template>
   <aside
     class="settings"
-    :class="openClass"
+    :class="{ open: isSettings }"
   >
     <Wrapper>
       <div class="settings-wrapper">
@@ -14,6 +14,7 @@
 
           <form
             action="example.php"
+            @submit.prevent="saveSettings"
           >
             <Radio
               v-model="setSize"
@@ -37,7 +38,10 @@
               5 X 5
             </Radio>
 
-            <Button >
+            <Button
+              class="settings-submit"
+              :disabled="setSize === size"
+            >
               Save settings
             </Button>
           </form>
@@ -48,16 +52,28 @@
 </template>
 
 <script setup>
-  import { ref, inject, computed } from 'vue';
+  import { ref, inject, watch } from 'vue';
 
   import Close from '@/UI/Close.vue';
   import Radio from '@/UI/Radio.vue';
 
   const setSize = ref(3);
+
   const isSettings = inject('isSettings');
   const closeSettings = inject('closeSettings');
+  const size = inject('size');
+  const changeSize = inject('changeSize');
 
-  const openClass = computed(() => isSettings.value ? 'open': '');
+  const saveSettings = () => {
+    changeSize(setSize.value);
+    closeSettings();
+  };
+
+  const openSettings = (val) => {
+    if (val) setSize.value = size.value;
+  };
+
+  watch(isSettings, openSettings);
 </script>
 
 <style lang="scss">

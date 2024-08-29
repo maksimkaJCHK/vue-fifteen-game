@@ -3,7 +3,7 @@
     <Wrapper>
       <SettingsIcon @click="openSettings" />
 
-      <div className="header-logo">
+      <div class="header-logo">
         Vue fifteen game
       </div>
     </Wrapper>

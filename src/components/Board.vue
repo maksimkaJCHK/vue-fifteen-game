@@ -1,0 +1,144 @@
+<template>
+  <div
+    class="board"
+    :class="[`board-size-${size}`, { 'stop-game': isGameOver }]"
+  >
+    <template
+      v-for="(item, count) in firstPosition"
+      :key = "item + id"
+    >
+      <div
+        v-if="item !== null"
+        :class="itemClass[count]"
+        :style="genItemStyle[count]"
+        @click="move(item)"
+      >
+        {{ item }}
+      </div>
+    </template>
+  </div>
+</template>
+
+<script setup>
+  import { inject, computed } from 'vue';
+  import { calcNumbRow, calcNumbCol } from '@/helpers/helpers.js';
+
+  const size = inject('size');
+  const isGameOver = inject('isGameOver');
+  const id = inject('id');
+
+  const items = inject('items');
+  const firstPosition = inject('firstPosition');
+  const move = inject('move');
+
+  const generateStyle = (item) => {
+    if (!item) {
+      return {
+        top: '0%',
+        left: '0%'
+      }
+    }
+
+    const calcPosition = 100 / size.value;
+
+    const idx = items.value.findIndex((el) => el === item);
+    const top = (calcPosition * calcNumbRow(idx, size.value)) - calcPosition;
+    const left = (calcPosition * calcNumbCol(idx, size.value)) - calcPosition;
+
+    return {
+      top: `${top}%`,
+      left: `${left}%`
+    }
+  };
+
+  const genItemStyle = computed(() => firstPosition.value.map((item) => generateStyle(item)));
+
+  const itemClass = computed(() => {
+    const isCompleted = items.value.filter((item, count) => item === count + 1);
+
+    return firstPosition.value.map((item) => {
+      const className = ['board-item'];
+
+      if (isCompleted.indexOf(item) !== -1) className.push('completed');
+
+      return className.join(' ');
+    });
+  });
+</script>
+
+<style lang="scss">
+  @import '@/styles/_easing.scss';
+
+  .board {
+    --size: 33.333333333333333%;
+    --board-bg: var(--button-bg);
+    --board-item-bg: var(--item-bg);
+    --main-font-size: 50px;
+
+    $transitionSettings: .4s $easeInOutSine 0s;
+
+    margin: 20px auto;
+    position: relative;
+    background: var(--board-bg);
+    box-shadow: 0 0 5px rgba(0, 0, 0, .4);
+
+    &-size {
+      &-3 {
+        @media screen and (min-width: 375px) {
+          --main-font-size: 70px;
+        }
+      }
+      &-4 {
+        --size: 25%;
+        --main-font-size: 40px;
+      }
+      &-5 {
+        --size: 20%;
+        --main-font-size: 30px;
+      }
+      @media screen and (min-width: 400px) {
+        &-4 {
+          --main-font-size: 55px;
+        }
+        &-5 {
+          --main-font-size: 40px;
+        }
+      }
+    }
+
+    &::before {
+      content: ' ';
+      display: block;
+      padding-top: 100%;
+    }
+
+    .stop-game &-item {
+      cursor: default;
+      opacity: .4;
+    }
+
+    &-item {
+      top: 0;
+      left: 0;
+      color: #fff;
+      width: var(--size);
+      height: var(--size);
+      position: absolute;
+      display: flex;
+      font-size: var(--main-font-size);
+      justify-content: center;
+      align-items: center;
+      background-color: var(--board-item-bg);
+      cursor: pointer;
+      user-select: none;
+      opacity: 1;
+      text-shadow: 1px 1px 3px #000;
+      box-shadow: inset 0 0 2px rgba(0, 0, 0, .4);
+      transition: left $transitionSettings, top $transitionSettings, opacity .4s $easeInOutSine .4s, background-color $transitionSettings;
+
+      &.completed {
+        --board-item-bg: #03448a;
+      }
+    }
+  }
+</style>

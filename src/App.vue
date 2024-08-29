@@ -5,7 +5,9 @@
 
     <Wrapper class="mainContent">
       <main>
-
+        <info-block />
+        <Board />
+        <services-block />
       </main>
     </Wrapper>
 
@@ -14,20 +16,21 @@
 </template>
 
 <script setup>
-  import { ref, provide } from 'vue';
-
   import Header from '@/layouts/Header.vue';
   import Footer from '@/layouts/Footer.vue';
   import Settings from '@/layouts/Settings.vue';
 
-  const isSettings = ref(false);
+  import InfoBlock from '@/components/InfoBlock.vue';
+  import Board from '@/components/Board.vue';
+  import ServicesBlock from '@/components/ServicesBlock.vue';
 
-  const closeSettings = () => isSettings.value = false;
-  const openSettings = () => isSettings.value = true;
+  import useSettingsBlock from '@/hooks/useSettingsBlock.js';
+  import useGameSettings from '@/hooks/useGameSettings.js';
 
-  provide('isSettings', isSettings);
-  provide('closeSettings', closeSettings);
-  provide('openSettings', openSettings);
+  // Для блока настроек
+  useSettingsBlock();
+  // Настройки игры
+  useGameSettings();
 </script>
 
 <style lang="scss">
