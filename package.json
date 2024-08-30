@@ -1,8 +1,20 @@
 {
   "name": "vue-fifteen-game",
-  "private": true,
   "version": "0.0.1",
   "type": "module",
+  "author": "Maksim Zhuchkov",
+  "license": "MIT",
+  "description": "vue-fifteen-game, а по русски просто пятнашки.",
+  "keywords": [
+    "vue-fifteen-game",
+    "fifteen game",
+    "fifteen game on vue.js",
+    "пятнашки"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/maksimkaJCHK/vue-fifteen-game"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
