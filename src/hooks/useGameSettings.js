@@ -43,9 +43,9 @@ const useGameSettings = (isSettings) => {
     isGameOver.value = false;
   };
 
-  const genStartGame = (size) => {
-    const genItems = generateBoardItem(size);
-    const genStopGameCondition = bForCompareArr([...generateArr(size * size)]);
+  const genStartGame = () => {
+    const genItems = generateBoardItem(size.value);
+    const genStopGameCondition = bForCompareArr([...generateArr(size.value * size.value)]);
 
     id.value = Date.now();
     stopGameCondition.value = genStopGameCondition;
