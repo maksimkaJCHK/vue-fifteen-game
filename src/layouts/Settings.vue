@@ -3,8 +3,11 @@
     class="settings"
     :class="{ open: isSettings }"
   >
-    <Wrapper>
-      <div class="settings-wrapper">
+    <Wrapper @click="closeSettings">
+      <div
+        class="settings-wrapper"
+        @click.stop
+      >
         <div class="settings-block">
           <Close @click="closeSettings" />
 
