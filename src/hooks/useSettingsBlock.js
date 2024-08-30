@@ -11,7 +11,7 @@ const useSettings = () => {
     const params = getParamGame();
 
     if (!params) openSettings();
-    if (params) isSettings.value = params.isSettingsSave;
+    if (params) isSettings.value = params.isSettings;
   });
 
   provide('isSettings', isSettings);

@@ -56,15 +56,15 @@ const useGameSettings = (isSettings) => {
 
   const saveGame = () => {
     saveGameParam({
-      itemsSave: items.value,
-      firstPositionSave: firstPosition.value,
-      isGameOverSave: isGameOver.value,
-      isStartSave: isStart.value,
-      stopGameConditionSave: stopGameCondition.value,
-      idSave: id.value,
-      countSave: count.value,
-      sizeSave: size.value,
-      isSettingsSave: isSettings.value
+      items: items.value,
+      firstPosition: firstPosition.value,
+      isGameOver: isGameOver.value,
+      isStart: isStart.value,
+      stopGameCondition: stopGameCondition.value,
+      id: id.value,
+      count: count.value,
+      size: size.value,
+      isSettings: isSettings.value
     });
   };
 
@@ -124,25 +124,14 @@ const useGameSettings = (isSettings) => {
     if (!params) newGame();
 
     if (params) {
-      const {
-        itemsSave,
-        firstPositionSave,
-        isGameOverSave,
-        isStartSave,
-        stopGameConditionSave,
-        idSave,
-        countSave,
-        sizeSave,
-      } = params;
-
-      items.value = itemsSave;
-      firstPosition.value = firstPositionSave;
-      isGameOver.value = isGameOverSave;
-      isStart.value = isStartSave;
-      stopGameCondition.value = stopGameConditionSave;
-      id.value = idSave;
-      count.value = countSave;
-      size.value = sizeSave;
+      items.value = params.items;
+      firstPosition.value = params.firstPosition;
+      isGameOver.value = params.isGameOver;
+      isStart.value = params.isStart;
+      stopGameCondition.value = params.stopGameCondition;
+      id.value = params.id;
+      count.value = params.count;
+      size.value = params.size;
     }
   });
 }
