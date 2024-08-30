@@ -28,9 +28,9 @@
   import useGameSettings from '@/hooks/useGameSettings.js';
 
   // Для блока настроек
-  useSettingsBlock();
+  const { isSettings } = useSettingsBlock();
   // Настройки игры
-  useGameSettings();
+  useGameSettings(isSettings);
 </script>
 
 <style lang="scss">

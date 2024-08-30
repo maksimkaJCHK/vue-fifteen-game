@@ -1,7 +1,7 @@
 <template>
   <div
     class="info"
-    :class="{ isGameOver: isGameOver}"
+    :class="{ isGameOver: isGameOver }"
   >
     {{ infoText }}
   </div>

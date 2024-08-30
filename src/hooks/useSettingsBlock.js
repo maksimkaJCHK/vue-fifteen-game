@@ -7,15 +7,18 @@ const useSettings = () => {
   const closeSettings = () => isSettings.value = false;
   const openSettings = () => isSettings.value = true;
 
-  provide('isSettings', isSettings);
-  provide('closeSettings', closeSettings);
-  provide('openSettings', openSettings);
-
   onBeforeMount(() => {
     const params = getParamGame();
 
     if (!params) openSettings();
+    if (params) isSettings.value = params.isSettingsSave;
   });
+
+  provide('isSettings', isSettings);
+  provide('closeSettings', closeSettings);
+  provide('openSettings', openSettings);
+
+  return { isSettings };
 }
 
 export default useSettings;

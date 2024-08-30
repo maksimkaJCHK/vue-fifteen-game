@@ -12,7 +12,7 @@ import {
   getParamGame
 } from '@/helpers/helpers.js';
 
-const useGameSettings = () => {
+const useGameSettings = (isSettings) => {
   const items = ref([]);
   const firstPosition = ref([]);
 
@@ -24,7 +24,7 @@ const useGameSettings = () => {
   const count = ref(0);
   const size = ref(3);
 
-  // Параметры
+  // Делаю параметры игры доступными для всего приложения
   provide('items', items);
   provide('firstPosition', firstPosition);
 
@@ -36,21 +36,22 @@ const useGameSettings = () => {
   provide('count', count);
   provide('size', size);
 
-  // функции для управления игрой
+  // Функции для управления игрой
   const startGame = () => {
     count.value = 0;
     isStart.value = true;
     isGameOver.value = false;
   };
 
-  const startGameGenerate = (size) => {
-    const itemsGen = generateBoardItem(size);
-    const stopGameConditionGen = bForCompareArr([...generateArr(size * size)]);
-  
-    return {
-      itemsGen,
-      stopGameConditionGen
-    }
+  const genStartGame = (size) => {
+    const genItems = generateBoardItem(size);
+    const genStopGameCondition = bForCompareArr([...generateArr(size * size)]);
+
+    id.value = Date.now();
+    stopGameCondition.value = genStopGameCondition;
+
+    items.value = genItems;
+    firstPosition.value = [ ...genItems ];
   };
 
   const saveGame = () => {
@@ -63,28 +64,18 @@ const useGameSettings = () => {
       idSave: id.value,
       countSave: count.value,
       sizeSave: size.value,
+      isSettingsSave: isSettings.value
     });
   };
 
   const newGame = () => {
-    const {
-      itemsGen,
-      stopGameConditionGen
-    } = startGameGenerate(size.value);
-
+    genStartGame()
     startGame();
-
-    id.value = Date.now();
-    stopGameCondition.value = stopGameConditionGen;
-    items.value = itemsGen;
-    firstPosition.value = [ ...itemsGen ];
-
     saveGame();
   };
 
   const changeSize = (sizeParam) => {
     size.value = sizeParam;
-
     newGame();
   };
 
@@ -121,6 +112,7 @@ const useGameSettings = () => {
     }
   };
 
+  // Делаю доступными для всего приложения функции для управления игрой
   provide('newGame', newGame);
   provide('reloadGame', reloadGame);
   provide('move', move);
